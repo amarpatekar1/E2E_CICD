@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   test:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Selenium Grid
         run: docker-compose up -d
 
-      - name: Run Robot Framework Tests
+      - name: Run Robot Framework Tests in Docker
         run: |
           docker run --network host -e BROWSER=${{ matrix.browser }} kubeamarap/automation_practice:latest
 
@@ -32,21 +32,21 @@ jobs:
   merge:
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
     steps:
       - uses: actions/checkout@v2
       - name: Merge PR
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout main
+          git checkout master
           git merge ${{ github.event.pull_request.head.ref }}
-          git push origin main
+          git push origin master
 
   deploy:
     needs: merge
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
       - name: Deploy to Production

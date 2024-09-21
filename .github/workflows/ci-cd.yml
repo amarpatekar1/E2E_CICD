@@ -14,7 +14,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         browser: [chrome, firefox]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Selenium Grid
         run: docker-compose up -d

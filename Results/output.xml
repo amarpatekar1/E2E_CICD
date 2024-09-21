@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.10.8 on darwin)" generated="2024-08-09T17:17:41.938849" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/Users/amarpatekar1/Documents/development/robot-scripts/RobotFramework_Website/tests">
+<suite id="s1-s1" name="RobotTutorialTests" source="/Users/amarpatekar1/Documents/development/robot-scripts/RobotFramework_Website/tests/RobotTutorialTests.robot">
+<test id="s1-s1-t1" name="Should be able to navigate to the site and click Contact" line="16">
+<kw name="Begin Web Test" owner="Common" type="SETUP">
+<kw name="Open Browser" owner="Selenium2Library">
+<msg time="2024-08-09T17:17:42.141303" level="INFO">Opening browser 'ff' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-08-09T17:17:42.141174" elapsed="30.851627"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:17:42.140711" elapsed="30.853565"/>
+</kw>
+<kw name="Site visit" owner="RobotTutorialApp">
+<kw name="Load" owner="LandingPage">
+<kw name="Go To" owner="Selenium2Library">
+<msg time="2024-08-09T17:18:13.005099" level="INFO">Opening url 'https://www.robotframeworktutorial.com/'</msg>
+<arg>${START_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-08-09T17:18:13.001797" elapsed="2.315301"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:12.998626" elapsed="2.318751"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:12.996686" elapsed="2.320735"/>
+</kw>
+<kw name="Verify landing page" owner="RobotTutorialApp">
+<kw name="Verify Page Loaded" owner="LandingPage">
+<kw name="Page Should Contain" owner="Selenium2Library">
+<msg time="2024-08-09T17:18:15.431712" level="INFO">Current page contains text 'The fastest way to learn Robot Framework!'.</msg>
+<arg>The fastest way to learn Robot Framework!</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2024-08-09T17:18:15.318570" elapsed="0.113224"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:15.318365" elapsed="0.113508"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:15.317932" elapsed="0.113973"/>
+</kw>
+<kw name="click Contact link" owner="RobotTutorialApp">
+<kw name="Click Link" owner="Selenium2Library">
+<msg time="2024-08-09T17:18:15.432812" level="INFO">Clicking link 'Contact'.</msg>
+<arg>Contact</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="PASS" start="2024-08-09T17:18:15.432321" elapsed="2.119085"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:15.432091" elapsed="2.119406"/>
+</kw>
+<kw name="Verify Team Page" owner="RobotTutorialApp">
+<kw name="Verify Team Page Loaded" owner="TeamPage">
+<kw name="Page Should Contain" owner="Selenium2Library">
+<msg time="2024-08-09T17:18:17.595086" level="INFO">Current page contains text 'Need Something?'.</msg>
+<arg>Need Something?</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2024-08-09T17:18:17.551982" elapsed="0.043176"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:17.551862" elapsed="0.043367"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:17.551675" elapsed="0.043586"/>
+</kw>
+<kw name="End Web Test" owner="Common" type="TEARDOWN">
+<kw name="Close Browser" owner="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-08-09T17:18:17.595702" elapsed="0.708360"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:18:17.595504" elapsed="0.708771"/>
+</kw>
+<status status="PASS" start="2024-08-09T17:17:42.140365" elapsed="36.164019"/>
+</test>
+<doc>Suite description</doc>
+<status status="PASS" start="2024-08-09T17:17:41.951257" elapsed="36.353612"/>
+</suite>
+<status status="PASS" start="2024-08-09T17:17:41.939864" elapsed="36.366017"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="RobotTutorialTests">Tests.RobotTutorialTests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.10.8 on darwin)" generated="2024-09-21T14:22:06.111704" rpa="false" schemaversion="5">
+<suite id="s1" name="RobotTutorialTests" source="/Users/amarpatekar1/Documents/development/robot-scripts/Automation_Practice/Tests/RobotTutorialTests.robot">
+<test id="s1-t1" name="Should be able to navigate to the site and click Contact" line="16">
+<kw name="Begin Web Test" owner="Common" type="SETUP">
+<kw name="Open Browser" owner="Selenium2Library">
+<msg time="2024-09-21T14:22:06.229392" level="INFO">Opening browser 'firefox' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-09-21T14:22:06.229266" elapsed="5.057886"/>
+</kw>
+<status status="PASS" start="2024-09-21T14:22:06.228802" elapsed="5.059791"/>
+</kw>
+<kw name="Site visit" owner="RobotTutorialApp">
+<kw name="Load" owner="LandingPage">
+<kw name="Go To" owner="Selenium2Library">
+<msg time="2024-09-21T14:22:11.291710" level="INFO">Opening url 'https://rtqawww.securly.com/'</msg>
+<arg>${START_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-09-21T14:22:11.291491" elapsed="11.554234"/>
+</kw>
+<status status="PASS" start="2024-09-21T14:22:11.291190" elapsed="11.555323"/>
+</kw>
+<status status="PASS" start="2024-09-21T14:22:11.290306" elapsed="11.556278"/>
+</kw>
+<kw name="End Web Test" owner="Common" type="TEARDOWN">
+<kw name="Close Browser" owner="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-09-21T14:22:22.854718" elapsed="0.776639"/>
+</kw>
+<status status="PASS" start="2024-09-21T14:22:22.850896" elapsed="0.780580"/>
+</kw>
+<status status="PASS" start="2024-09-21T14:22:06.228389" elapsed="17.403170"/>
+</test>
+<doc>Suite description</doc>
+<status status="PASS" start="2024-09-21T14:22:06.112451" elapsed="17.519512"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="RobotTutorialTests">RobotTutorialTests</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2024-09-21T14:22:06.225115" level="WARN">Error in file '/Users/amarpatekar1/Documents/development/robot-scripts/Automation_Practice/Resources/PO/GlobalSettings.robot' on line 29: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

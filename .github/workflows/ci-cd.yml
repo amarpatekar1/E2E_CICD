@@ -10,25 +10,35 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: ppodgorsek/automation_practice:latest
+      image: ppodgorsek/robot-framework:latest
       options: --shm-size=1g
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@latest
-
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@master
-
-      - name: Start ChromeDriver
+      - name: Run Robot Framework Tests
         run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
+          robot --outputdir results Tests/
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: results
+
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v1
+#
+#
+#      - name: Setup Chrome
+#        uses: browser-actions/setup-chrome@latest
+#
+#      - name: Setup ChromeDriver
+#        uses: nanasess/setup-chromedriver@master
+#
+#      - name: Start ChromeDriver
+#        run: |
+#          export DISPLAY=:99
+#          chromedriver --url-base=/wd/hub &
 #
 #      - name: Set up Selenium Grid
 #        run: |
@@ -37,15 +47,15 @@ jobs:
 #          docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-chrome:4.8.0
 #          docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-firefox:4.8.0
 
-      - name: Run Robot Framework Tests in Docker
-        run: |
-          docker run --network host -e BROWSER=${{ matrix.browser }} kubeamarap/automation_practice:latest
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: output
+#      - name: Run Robot Framework Tests in Docker
+#        run: |
+#          docker run --network host -e BROWSER=${{ matrix.browser }} kubeamarap/automation_practice:latest
+#
+#      - name: Upload Test Results
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: test-results
+#          path: output
 
   merge:
     needs: test

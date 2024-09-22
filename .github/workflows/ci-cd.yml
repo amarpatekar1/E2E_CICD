@@ -35,21 +35,32 @@ jobs:
   merge:
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
+    if: success()
     steps:
       - uses: actions/checkout@v3
-      - name: Merge PR
+        with:
+          fetch-depth: 0
+
+      - name: Merge to Master
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout master
-          git merge ${{ github.event.pull_request.head.ref }}
+          
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            git checkout master
+            git merge --no-ff ${{ github.event.pull_request.head.ref }} -m "Merge pull request #${{ github.event.pull_request.number }}"
+          elif [ "${{ github.event_name }}" == "push" ]; then
+            if [ "${{ github.ref }}" != "refs/heads/master" ]; then
+              git checkout master
+              git merge --no-ff ${{ github.ref }} -m "Merge branch '${{ github.ref }}' into master"
+            fi
+          fi
+          
           git push origin master
 
   deploy:
     needs: merge
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
       - name: Deploy to Production

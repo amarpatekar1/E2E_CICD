@@ -9,15 +9,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: ppodgorsek/robot-framework:latest
-      options: --shm-size=1g
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
       - name: Run Robot Framework Tests
         run: |
-          robot --outputdir results Tests/
+          docker run --shm-size=1g -v ${PWD}:/opt/robotframework/tests:Z -e ROBOT_OPTIONS="--outputdir results" ppodgorsek/robot-framework:latest
+
+      - name: Copy results from Docker
+        run: |
+          docker cp $(docker ps -lq):/opt/robotframework/tests/results ./results
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v3
@@ -25,44 +29,12 @@ jobs:
           name: test-results
           path: results
 
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v1
-#
-#
-#      - name: Setup Chrome
-#        uses: browser-actions/setup-chrome@latest
-#
-#      - name: Setup ChromeDriver
-#        uses: nanasess/setup-chromedriver@master
-#
-#      - name: Start ChromeDriver
-#        run: |
-#          export DISPLAY=:99
-#          chromedriver --url-base=/wd/hub &
-#
-#      - name: Set up Selenium Grid
-#        run: |
-#          docker network create grid
-#          docker run -d -p 4444:4444 --net grid --name selenium-hub selenium/hub:4.8.0
-#          docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-chrome:4.8.0
-#          docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-firefox:4.8.0
-
-#      - name: Run Robot Framework Tests in Docker
-#        run: |
-#          docker run --network host -e BROWSER=${{ matrix.browser }} kubeamarap/automation_practice:latest
-#
-#      - name: Upload Test Results
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: test-results
-#          path: output
-
   merge:
     needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Merge PR
         run: |
           git config user.name github-actions
@@ -76,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Deploy to Production
         run: |
           # Add your deployment steps here
@@ -84,4 +56,5 @@ jobs:
 
       - name: Run Post-Deployment Tests
         run: |
-          docker run --network host -e BROWSER=chrome kubeamarap/automation_practice:latest
+          # Add your post-deployment test steps here
+          echo "Running post-deployment tests"
